@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>سیمرغ | اشتراک شما</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;800&display=swap">
+<style>
+:root{--bg:#0d1030;--bg2:#161a46;--ink:#f3eee4;--mute:#a9a7c4;--tq:#3fd0c0;--gd:#f2b84b;--rose:#ff7a8a;--line:rgba(243,238,228,.12);--glass:rgba(255,255,255,.055)}
+*{box-sizing:border-box;margin:0}
+html{height:100%}
+body{min-height:100%;font-family:Vazirmatn,Tahoma,sans-serif;color:var(--ink);background:radial-gradient(900px 500px at 85% -10%,#2a2d7a 0%,transparent 60%),radial-gradient(700px 500px at 0% 110%,#12504f 0%,transparent 55%),var(--bg);padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:520px;margin:0 auto;padding:22px 18px 40px}
+header{display:flex;align-items:center;gap:10px;margin-bottom:26px}
+.logo{width:38px;height:38px}
+header b{font-size:20px;font-weight:800;letter-spacing:-.2px}
+header span{margin-inline-start:auto;font-size:13px;color:var(--mute)}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:13px;padding:4px 12px;border-radius:99px;border:1px solid var(--line);background:var(--glass)}
+.badge i{width:8px;height:8px;border-radius:50%;background:var(--tq);box-shadow:0 0 0 4px rgba(63,208,192,.18)}
+.badge.warn i{background:var(--gd);box-shadow:0 0 0 4px rgba(242,184,75,.18)}
+.badge.off i{background:var(--rose);box-shadow:0 0 0 4px rgba(255,122,138,.18)}
+.hero{text-align:center;padding:8px 0 4px}
+.hero h1{font-size:22px;font-weight:600;margin:14px 0 4px}
+.hero p{color:var(--mute);font-size:14px}
+.ring{position:relative;width:min(300px,78vw);aspect-ratio:1;margin:18px auto 6px}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .tr{stroke:var(--line)}
+.ring .pg{stroke:url(#g);stroke-linecap:round;transition:stroke-dashoffset 1.6s cubic-bezier(.2,.8,.2,1)}
+.ring .mid{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring .mid strong{font-size:54px;font-weight:800;line-height:1;letter-spacing:-1px}
+.ring .mid small{font-size:14px;color:var(--mute);margin-top:6px}
+.ring .mid em{font-style:normal;font-size:13px;color:var(--gd);margin-top:10px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0}
+.box{background:var(--glass);border:1px solid var(--line);border-radius:20px;padding:16px;backdrop-filter:blur(14px)}
+.box h3{font-size:13px;font-weight:400;color:var(--mute);margin-bottom:6px}
+.box p{font-size:20px;font-weight:600}
+.box p small{font-size:13px;font-weight:400;color:var(--mute)}
+.bars{display:flex;align-items:flex-end;gap:7px;height:64px;margin-top:10px}
+.bars div{flex:1;border-radius:6px 6px 3px 3px;background:linear-gradient(var(--tq),#2a7f9e);min-height:4px;opacity:.85}
+.bars div:last-child{background:linear-gradient(var(--gd),#d98a2b);opacity:1}
+.days{display:flex;justify-content:space-between;font-size:11px;color:var(--mute);margin-top:6px}
+.sec{margin:26px 0 10px;font-size:16px;font-weight:600}
+.link{display:flex;gap:8px;align-items:center;background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:16px;padding:6px 6px 6px 14px}
+.link code{flex:1;direction:ltr;text-align:left;font-size:12.5px;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+button,.app{font:inherit;cursor:pointer}
+.copy{border:0;border-radius:12px;padding:10px 18px;font-weight:600;color:#1a1300;background:var(--gd);transition:transform .15s}
+.copy:active{transform:scale(.95)}
+.copy.ok{background:var(--tq)}
+.apps{display:grid;gap:10px}
+.app{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);background:var(--glass);border:1px solid var(--line);border-radius:18px;padding:14px 16px;transition:border-color .2s,background .2s}
+.app:hover,.app:focus-visible{border-color:var(--tq);background:rgba(63,208,192,.08);outline:none}
+.app.rec{border-color:var(--gd);background:rgba(242,184,75,.08)}
+.app b{font-weight:600}
+.app small{display:block;color:var(--mute);font-size:12px;margin-top:2px}
+.app .tag{margin-inline-start:auto;font-size:12px;color:var(--gd)}
+.app .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,#2a2d7a,#12504f);font-weight:800;font-size:15px}
+.qrbox{display:flex;gap:16px;align-items:center}
+.qr{background:#fff;padding:10px;border-radius:16px;width:132px;height:132px;display:grid;place-items:center;flex:none}
+.qr img,.qr canvas{width:100%!important;height:100%!important}
+.qrbox p{color:var(--mute);font-size:13px;line-height:1.9}
+.help{display:block;text-align:center;margin-top:28px;padding:14px;border-radius:16px;border:1px dashed var(--line);color:var(--mute);text-decoration:none;font-size:14px}
+.help:hover{color:var(--ink);border-color:var(--tq)}
+footer{text-align:center;color:var(--mute);font-size:12px;margin-top:26px;opacity:.7}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+:focus-visible{outline:2px solid var(--tq);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg class="logo" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+      <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#3fd0c0"/><stop offset="1" stop-color="#f2b84b"/></linearGradient></defs>
+      <path d="M6 34c8 2 14-2 18-9 4-7 10-12 18-13-3 4-4 7-4 10 3-1 5-1 7 0-5 2-8 5-10 9-4 8-14 12-29 3z" fill="url(#lg)"/>
+      <path d="M12 33c9-3 17-10 24-19" stroke="#0d1030" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+    <b>سیمرغ</b>
+    <span class="badge" id="status"><i></i><em id="stText" style="font-style:normal">فعال</em></span>
+  </header>
+
+  <section class="hero">
+    <h1 id="hello">سلام</h1>
+    <p>وضعیت اشتراک شما به‌روز است</p>
+    <div class="ring">
+      <svg viewBox="0 0 200 200">
+        <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3fd0c0"/><stop offset="1" stop-color="#f2b84b"/></linearGradient></defs>
+        <circle class="tr" cx="100" cy="100" r="86" fill="none" stroke-width="12"/>
+        <circle class="pg" id="pg" cx="100" cy="100" r="86" fill="none" stroke-width="12" stroke-dasharray="540.4" stroke-dashoffset="540.4"/>
+      </svg>
+      <div class="mid">
+        <strong id="left">۰</strong>
+        <small>گیگابایت باقی‌مانده</small>
+        <em id="pct"></em>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats">
+    <div class="box"><h3>مصرف شده</h3><p id="used">۰ <small>گیگابایت</small></p></div>
+    <div class="box"><h3>اعتبار باقی‌مانده</h3><p id="days">۰ <small>روز</small></p></div>
+    <div class="box" style="grid-column:1/-1">
+      <h3>مصرف ۷ روز اخیر</h3>
+      <div class="bars" id="bars"></div>
+      <div class="days" id="dl"></div>
+    </div>
+  </div>
+
+  <h2 class="sec">لینک اشتراک</h2>
+  <div class="link">
+    <code id="url"></code>
+    <button class="copy" id="copy">کپی لینک</button>
+  </div>
+
+  <h2 class="sec">افزودن به برنامه</h2>
+  <div class="apps" id="apps"></div>
+
+  <h2 class="sec">اسکن با گوشی دیگر</h2>
+  <div class="box qrbox">
+    <div class="qr" id="qr"></div>
+    <p>برنامه‌ی کلاینت را باز کنید و گزینه‌ی اسکن QR را بزنید. لینک شما روی هر دستگاه کار می‌کند.</p>
+  </div>
+
+  <a class="help" id="support" href="#">به کمک نیاز دارید؟ پیام به پشتیبانی</a>
+  <footer>ساخته‌شده با سیمرغ</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+/* ---- داده‌ی کاربر: بک‌اند این شیء را جایگزین می‌کند (نمونه) ---- */
+const DATA = window.SIMORGH_DATA || {
+  name: "کاربر نمونه",
+  sub_url: location.href.split("#")[0],
+  total_gb: 100,
+  used_gb: 37.4,
+  expire: Math.floor(Date.now()/1000) + 19*86400,
+  daily_gb: [2.1, 4.8, 3.2, 6.5, 1.9, 5.4, 3.7],
+  support_url: "https://t.me/your_support"
+};
+
+const fa = n => Number(n).toLocaleString("fa-IR");
+const fa1 = n => Number(n).toLocaleString("fa-IR",{maximumFractionDigits:1});
+
+const left = Math.max(DATA.total_gb - DATA.used_gb, 0);
+const ratio = DATA.total_gb ? Math.min(DATA.used_gb / DATA.total_gb, 1) : 0;
+const daysLeft = Math.ceil((DATA.expire*1000 - Date.now())/86400000);
+
+document.getElementById("hello").textContent = "سلام، " + DATA.name;
+document.getElementById("left").textContent = fa1(left);
+document.getElementById("pct").textContent = fa(Math.round((1-ratio)*100)) + "٪ از حجم باقی است";
+document.getElementById("used").innerHTML = fa1(DATA.used_gb) + " <small>از " + fa(DATA.total_gb) + " گیگابایت</small>";
+document.getElementById("days").innerHTML = fa(Math.max(daysLeft,0)) + " <small>روز</small>";
+requestAnimationFrame(()=>setTimeout(()=>{
+  document.getElementById("pg").style.strokeDashoffset = 540.4 * ratio;
+},150));
+
+const st = document.getElementById("status"), stText = document.getElementById("stText");
+if (daysLeft <= 0 || left <= 0){ st.classList.add("off"); stText.textContent = "پایان‌یافته"; }
+else if (daysLeft <= 3 || ratio > .9){ st.classList.add("warn"); stText.textContent = "رو به اتمام"; }
+
+const mx = Math.max(...DATA.daily_gb, 1);
+const names = ["ش","ی","د","س","چ","پ","ج"];
+const bars = document.getElementById("bars"), dl = document.getElementById("dl");
+DATA.daily_gb.forEach((v,i)=>{
+  const d = document.createElement("div");
+  d.style.height = Math.max(v/mx*100,6) + "%";
+  d.title = fa1(v) + " گیگابایت";
+  bars.appendChild(d);
+  const day = new Date(Date.now() - (DATA.daily_gb.length-1-i)*86400000).getDay();
+  const s = document.createElement("span");
+  s.textContent = names[(day+1)%7];
+  dl.appendChild(s);
+});
+
+const url = DATA.sub_url;
+document.getElementById("url").textContent = url;
+document.getElementById("support").href = DATA.support_url;
+const btn = document.getElementById("copy");
+btn.onclick = async () => {
+  try { await navigator.clipboard.writeText(url); }
+  catch(e){ const t=document.createElement("textarea"); t.value=url; document.body.appendChild(t); t.select(); document.execCommand("copy"); t.remove(); }
+  btn.textContent = "کپی شد"; btn.classList.add("ok");
+  setTimeout(()=>{btn.textContent="کپی لینک"; btn.classList.remove("ok");},1800);
+};
+
+if (window.QRCode) new QRCode(document.getElementById("qr"),{text:url,width:256,height:256,correctLevel:QRCode.CorrectLevel.M});
+
+/* ---- برنامه‌ها + تشخیص سیستم‌عامل ---- */
+const ua = navigator.userAgent;
+const os = /android/i.test(ua) ? "android" : /iphone|ipad|ipod/i.test(ua) ? "ios" : /mac/i.test(ua) ? "mac" : /win/i.test(ua) ? "win" : "other";
+const enc = encodeURIComponent(url), nm = encodeURIComponent("Simorgh");
+const APPS = [
+  {n:"Hiddify", s:"اندروید، iOS، ویندوز، مک", l:"hiddify://import/"+url+"#"+nm, os:["android","ios","win","mac"], c:"H"},
+  {n:"v2rayNG", s:"اندروید", l:"v2rayng://install-config?url="+enc+"&name="+nm, os:["android"], c:"V"},
+  {n:"Streisand", s:"iOS و مک", l:"streisand://import/"+url, os:["ios","mac"], c:"S"},
+  {n:"sing-box", s:"اندروید، iOS، مک", l:"sing-box://import-remote-profile?url="+enc+"#"+nm, os:["android","ios","mac"], c:"B"}
+];
+const list = APPS.filter(a=>os==="other"||a.os.includes(os));
+const box = document.getElementById("apps");
+(list.length?list:APPS).forEach((a,i)=>{
+  const el = document.createElement("a");
+  el.className = "app" + (i===0 ? " rec" : "");
+  el.href = a.l;
+  el.innerHTML = '<span class="ic">'+a.c+'</span><span><b>'+a.n+'</b><small>'+a.s+'</small></span>' + (i===0 ? '<span class="tag">پیشنهاد برای دستگاه شما</span>' : '');
+  box.appendChild(el);
+});
+</script>
+</body>
+</html>

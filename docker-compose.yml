@@ -1,0 +1,8 @@
+services:
+  simorgh:
+    build: .
+    restart: unless-stopped
+    network_mode: host   # Xray must bind the public port directly
+    env_file: .env
+    volumes:
+      - ./data:/data

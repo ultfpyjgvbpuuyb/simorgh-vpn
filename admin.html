@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>سیمرغ | مدیریت</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;800&display=swap">
+<style>
+:root{--bg:#0d1030;--ink:#f3eee4;--mute:#a9a7c4;--tq:#3fd0c0;--gd:#f2b84b;--rose:#ff7a8a;--line:rgba(243,238,228,.12);--glass:rgba(255,255,255,.055)}
+*{box-sizing:border-box;margin:0}
+body{min-height:100vh;font-family:Vazirmatn,Tahoma,sans-serif;color:var(--ink);background:radial-gradient(900px 500px at 85% -10%,#2a2d7a,transparent 60%),radial-gradient(700px 500px at 0% 110%,#12504f,transparent 55%),var(--bg);padding:20px}
+.w{max-width:980px;margin:0 auto}
+h1{font-size:22px;font-weight:800;display:flex;align-items:center;gap:10px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.card{background:var(--glass);border:1px solid var(--line);border-radius:20px;padding:18px;backdrop-filter:blur(14px);margin-bottom:18px}
+input{font:inherit;color:var(--ink);background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:12px;padding:10px 14px;min-width:0}
+input:focus-visible{outline:2px solid var(--tq)}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:9px 16px;font-weight:600;color:#1a1300;background:var(--gd)}
+button.g{background:var(--glass);color:var(--ink);border:1px solid var(--line)}
+button.r{background:rgba(255,122,138,.15);color:var(--rose);border:1px solid rgba(255,122,138,.3)}
+.form{display:flex;gap:10px;flex-wrap:wrap}
+.form input{flex:1;min-width:130px}
+.login{max-width:360px;margin:12vh auto}
+.login .form{flex-direction:column}
+table{width:100%;border-collapse:collapse}
+th{font-weight:400;color:var(--mute);font-size:13px;text-align:right;padding:8px}
+td{padding:12px 8px;border-top:1px solid var(--line);font-size:14px;vertical-align:middle}
+.bar{height:6px;border-radius:9px;background:var(--line);overflow:hidden;min-width:90px;margin-top:6px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--tq),var(--gd))}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-inline-end:6px}
+.acts{display:flex;gap:6px;flex-wrap:wrap}
+.acts button{padding:6px 10px;font-size:12px}
+.scroll{overflow-x:auto}
+.hide{display:none}
+</style>
+</head>
+<body>
+<div class="w">
+  <div id="login" class="card login hide">
+    <h1 style="margin-bottom:16px">سیمرغ</h1>
+    <div class="form">
+      <input id="u" placeholder="نام کاربری" autocomplete="username">
+      <input id="p" type="password" placeholder="رمز عبور" autocomplete="current-password">
+      <button id="go">ورود</button>
+    </div>
+  </div>
+  <div id="app" class="hide">
+    <div class="top"><h1>سیمرغ · مدیریت</h1><button class="g" id="out">خروج</button></div>
+    <div class="card">
+      <div class="form">
+        <input id="nn" placeholder="نام کاربر (انگلیسی)" dir="ltr">
+        <input id="ng" type="number" min="1" placeholder="حجم (گیگابایت)">
+        <input id="nd" type="number" min="1" placeholder="مدت (روز)">
+        <button id="add">افزودن کاربر</button>
+      </div>
+    </div>
+    <div class="card scroll">
+      <table>
+        <thead><tr><th>کاربر</th><th>مصرف</th><th>انقضا</th><th></th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <p id="empty" class="hide" style="color:var(--mute);padding:14px 8px">هنوز کاربری ندارید. از فرم بالا اولین کاربر را بسازید.</p>
+    </div>
+  </div>
+</div>
+<script>
+const $=s=>document.querySelector(s), fa=n=>Number(n).toLocaleString("fa-IR");
+let T=localStorage.simorgh||"";
+async function api(p,o={}){
+  const r=await fetch("/api"+p,{...o,headers:{"Content-Type":"application/json",Authorization:"Bearer "+T}});
+  if(r.status===401&&p!=="/login"){logout();throw 0}
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok){alert(d.detail&&typeof d.detail==="string"?d.detail:"ورودی نامعتبر است");throw 0}
+  return d;
+}
+function logout(){localStorage.removeItem("simorgh");T="";show()}
+function show(){$("#login").classList.toggle("hide",!!T);$("#app").classList.toggle("hide",!T);if(T)load()}
+$("#go").onclick=async()=>{const d=await api("/login",{method:"POST",body:JSON.stringify({username:$("#u").value,password:$("#p").value})});T=d.token;localStorage.simorgh=T;show()};
+$("#out").onclick=logout;
+$("#add").onclick=async()=>{
+  await api("/users",{method:"POST",body:JSON.stringify({username:$("#nn").value.trim(),total_gb:+$("#ng").value,days:+$("#nd").value})});
+  ["#nn","#ng","#nd"].forEach(s=>$(s).value="");load();
+};
+async function act(name,kind,extra){
+  if(kind==="del"){if(!confirm("حذف "+name+"؟"))return;await api("/users/"+name,{method:"DELETE"})}
+  else if(kind==="reset")await api("/users/"+name+"/reset",{method:"POST"});
+  else if(kind==="toggle")await api("/users/"+name,{method:"PATCH",body:JSON.stringify({enabled:extra})});
+  else if(kind==="copy"){await navigator.clipboard.writeText(extra);alert("لینک کپی شد");return}
+  else if(kind==="renew"){const d=+prompt("تمدید برای چند روز؟","30");if(!d)return;await api("/users/"+name,{method:"PATCH",body:JSON.stringify({days:d})})}
+  load();
+}
+async function load(){
+  const list=await api("/users"), tb=$("#rows");
+  tb.innerHTML="";$("#empty").classList.toggle("hide",list.length>0);
+  list.forEach(u=>{
+    const pct=Math.min(100,u.used_gb/u.total_gb*100), days=Math.ceil((u.expire*1000-Date.now())/864e5);
+    const tr=document.createElement("tr");
+    tr.innerHTML=`<td><span class="dot" style="background:${u.active?"var(--tq)":"var(--rose)"}"></span>${u.username}</td>
+      <td>${fa(u.used_gb)} از ${fa(u.total_gb)} گیگابایت<div class="bar"><i style="width:${pct}%"></i></div></td>
+      <td>${days>0?fa(days)+" روز":"منقضی"}</td>
+      <td class="acts"></td>`;
+    const a=tr.querySelector(".acts");
+    [["کپی لینک","g","copy",u.sub_url],["تمدید","g","renew"],["ریست حجم","g","reset"],
+     [u.enabled?"غیرفعال":"فعال","g","toggle",!u.enabled],["حذف","r","del"]].forEach(([t,c,k,x])=>{
+      const b=document.createElement("button");b.textContent=t;b.className=c;b.onclick=()=>act(u.username,k,x);a.appendChild(b)});
+    tb.appendChild(tr);
+  });
+}
+show();
+</script>
+</body>
+</html>
